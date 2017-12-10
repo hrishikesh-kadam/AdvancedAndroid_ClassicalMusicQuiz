@@ -50,8 +50,6 @@ import com.google.android.exoplayer2.util.Util;
 
 import java.util.ArrayList;
 
-// TODO COMPLETED (1): Have this Activity implement ExoPlayer.EventListener and add the required methods.
-
 public class QuizActivity extends AppCompatActivity
         implements View.OnClickListener, ExoPlayer.EventListener {
 
@@ -109,6 +107,9 @@ public class QuizActivity extends AppCompatActivity
         // Initialize the buttons with the composers names.
         mButtons = initializeButtons(mQuestionSampleIDs);
 
+        // TODO (1): Create a method to initialize the MediaSession. It should create the MediaSessionCompat object, set the flags for external clients, set the available actions you want to support, and start the session.
+        // TODO (2): Create an inner class that extends MediaSessionCompat.Callbacks, and override the onPlay(), onPause(), and onSkipToPrevious() callbacks. Pass an instance of this class into the MediaSession.setCallback() method in the method you created in TODO 1.
+
         Sample answerSample = Sample.getSampleByID(this, mAnswerSampleID);
 
         if (answerSample == null) {
@@ -137,7 +138,6 @@ public class QuizActivity extends AppCompatActivity
             mExoPlayer = ExoPlayerFactory.newSimpleInstance(this, trackSelector, loadControl);
             mPlayerView.setPlayer(mExoPlayer);
 
-            // TODO COMPLETED (2): Set the ExoPlayer.EventListener to this activity
             // Set the ExoPlayer.EventListener to this activity.
             mExoPlayer.addListener(this);
 
@@ -267,6 +267,7 @@ public class QuizActivity extends AppCompatActivity
      */
     @Override
     protected void onDestroy() {
+        // TODO (4): When the activity is destroyed, set the MediaSession to inactive.
         super.onDestroy();
         releasePlayer();
     }
@@ -286,13 +287,13 @@ public class QuizActivity extends AppCompatActivity
 
     }
 
-    // TODO COMPLETED (3): Add conditional logging statements to the onPlayerStateChanged() method that log when ExoPlayer is playing or paused.
-
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         if((playbackState == ExoPlayer.STATE_READY) && playWhenReady){
+            // TODO (3): When ExoPlayer is playing, update the PlayBackState.
             Log.d(TAG, "-> onPlayerStateChanged: PLAYING");
         } else if((playbackState == ExoPlayer.STATE_READY)){
+            // TODO (3): When ExoPlayer is paused, update the PlayBackState.
             Log.d(TAG, "-> onPlayerStateChanged: PAUSED");
         }
     }
