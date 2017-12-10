@@ -64,9 +64,10 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        // TODO COMPLETED (2): Replace the ImageView with the SimpleExoPlayerView, and remove the method calls on the composerView.
         // Initialize the player view.
         mPlayerView = (SimpleExoPlayerView) findViewById(R.id.playerView);
+
+        // TODO (1): Create a layout file called exo_playback_control_view to override the playback control layout.
 
         boolean isNewGame = !getIntent().hasExtra(REMAINING_SONGS_KEY);
 
@@ -87,7 +88,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         mQuestionSampleIDs = QuizUtils.generateQuestion(mRemainingSampleIDs);
         mAnswerSampleID = QuizUtils.getCorrectAnswerID(mQuestionSampleIDs);
 
-        // TODO COMPLETED (3): Replace the default artwork in the SimpleExoPlayerView with the question mark drawable.
         // Load the question mark as the background image until the user answers the question.
         mPlayerView.setDefaultArtwork(BitmapFactory.decodeResource
                 (getResources(), R.drawable.question_mark));
@@ -101,7 +101,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         // Initialize the buttons with the composers names.
         mButtons = initializeButtons(mQuestionSampleIDs);
 
-        // TODO COMPLETED (4): Create a Sample object using the Sample.getSampleByID() method and passing in mAnswerSampleID;
         Sample answerSample = Sample.getSampleByID(this, mAnswerSampleID);
         if (answerSample == null) {
             Toast.makeText(this, getString(R.string.sample_not_found_error),
@@ -110,15 +109,11 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
-        // TODO COMPLETED (5): Create a method called initializePlayer() that takes a Uri as an argument and call it here, passing in the Sample URI.
         // Initialize the player.
         initializePlayer(Uri.parse(answerSample.getUri()));
     }
 
     // In initializePayer
-    // TODO COMPLETED (6): Instantiate a SimpleExoPlayer object using DefaultTrackSelector and DefaultLoadControl.
-    // TODO COMPLETED (7): Prepare the MediaSource using DefaultDataSourceFactory and DefaultExtractorsFactory, as well as the Sample URI you passed in.
-    // TODO COMPLETED (8): Prepare the ExoPlayer with the MediaSource, start playing the sample and set the SimpleExoPlayer to the SimpleExoPlayerView.
 
     /**
      * Initialize ExoPlayer.
@@ -219,7 +214,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void run() {
 
-                // TODO COMPLETED (9): Stop the playback when you go to the next question.
                 mExoPlayer.stop();
                 Intent nextQuestionIntent = new Intent(QuizActivity.this, QuizActivity.class);
                 nextQuestionIntent.putExtra(REMAINING_SONGS_KEY, mRemainingSampleIDs);
@@ -235,7 +229,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void showCorrectAnswer() {
 
-        // TODO COMPLETED (10): Change the default artwork in the SimpleExoPlayerView to show the picture of the composer, when the user has answered the question.
         mPlayerView.setDefaultArtwork(Sample.getComposerArtBySampleID(this, mAnswerSampleID));
 
         for (int i = 0; i < mQuestionSampleIDs.size(); i++) {
@@ -256,7 +249,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    // TODO COMPLETED (11): Override onDestroy() to stop and release the player when the Activity is destroyed.
 
     /**
      * Release the player when the activity is destroyed.
