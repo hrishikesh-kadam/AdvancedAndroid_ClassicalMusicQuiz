@@ -14,8 +14,6 @@
      limitations under the License.
 -->
 
-<!-- TODO COMPLETED (1): Create a layout file called exo_playback_control_view to override the playback control layout. -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
