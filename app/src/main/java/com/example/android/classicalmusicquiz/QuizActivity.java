@@ -110,9 +110,6 @@ public class QuizActivity extends AppCompatActivity
         // Initialize the buttons with the composers names.
         mButtons = initializeButtons(mQuestionSampleIDs);
 
-        // TODO COMPLETED (1): Create a method to initialize the MediaSession. It should create the MediaSessionCompat object, set the flags for external clients, set the available actions you want to support, and start the session.
-        // TODO COMPLETED (2): Create an inner class that extends MediaSessionCompat.Callbacks, and override the onPlay(), onPause(), and onSkipToPrevious() callbacks. Pass an instance of this class into the MediaSession.setCallback() method in the method you created in TODO 1.
-
         // Initialize the Media Session.
         initializeMediaSession();
 
@@ -164,7 +161,7 @@ public class QuizActivity extends AppCompatActivity
         mMediaSession.setActive(true);
     }
 
-    // In initializePayer
+    // TODO (1): Create a method that shows a MediaStyle notification with two actions (play/pause, skip to previous). Clicking on the notification should launch this activity. It should take one argument that defines the state of MediaSession.
 
     /**
      * Initialize ExoPlayer.
@@ -308,7 +305,7 @@ public class QuizActivity extends AppCompatActivity
      */
     @Override
     protected void onDestroy() {
-        // TODO COMPLETED (4): When the activity is destroyed, set the MediaSession to inactive.
+
         super.onDestroy();
         releasePlayer();
         mMediaSession.setActive(false);
@@ -342,18 +339,18 @@ public class QuizActivity extends AppCompatActivity
         if((playbackState == ExoPlayer.STATE_READY) && playWhenReady){
             Log.d(TAG, "-> onPlayerStateChanged: PLAYING");
 
-            // TODO COMPLETED (3): When ExoPlayer is playing, update the PlayBackState.
             mStateBuilder.setState(PlaybackStateCompat.STATE_PLAYING,
                     mExoPlayer.getCurrentPosition(), 1f);
 
         } else if((playbackState == ExoPlayer.STATE_READY)){
             Log.d(TAG, "-> onPlayerStateChanged: PAUSED");
 
-            // TODO COMPLETED (3): When ExoPlayer is paused, update the PlayBackState.
             mStateBuilder.setState(PlaybackStateCompat.STATE_PAUSED,
                     mExoPlayer.getCurrentPosition(), 1f);
         }
         mMediaSession.setPlaybackState(mStateBuilder.build());
+
+        // TODO (2): Call the method to show the notification, passing in the PlayBackStateCompat object.
     }
 
     @Override
